@@ -1,0 +1,59 @@
+@import 'https://fonts.googleapis.com/css?family=Roboto:400,700|Muli:300,400';
+
+body {
+	font-family: 'Roboto', Helvetica, Arial, sans-serif;
+	margin-top: 15px;
+}
+
+h1, h2, h3, h4, h5, input, th {
+	font-family: 'Muli', Helvetica, Arial, sans-serif;
+}
+
+select {
+	margin-bottom: 0.6em;
+	min-width: 10rem;
+}
+
+.card {
+	margin-top: .75rem;
+}
+
+a:hover .fa-heart {
+	color: #cc0000;
+}
+
+/*.card-block {
+	max-height: 300px;
+	overflow: scroll;
+}*/
+
+table th, table tr td {
+	text-align: left;
+	width: 25%;
+}
+
+tr {
+	padding: 20px 0;
+}
+
+th {
+	cursor: pointer;
+}
+
+.alert {
+	z-index: 999;
+	position: fixed;
+	bottom: 15px;
+	left: 25%;
+	width: 50%;
+	opacity: 0.9;
+}
+
+.loading-cats {
+	position: absolute;
+	z-index: 999;
+	top: 60px;
+	left: 50%;
+	width: 60px;
+	margin-left: -30px;
+}
