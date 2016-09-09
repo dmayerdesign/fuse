@@ -11,7 +11,7 @@
 	*ngIf="!isLoading"
 	(update)="databaseSearch($event)"
 	(focusChange)="toggleSearchBoxFocus($event)"
-	[set]="set"></search-box>
+	[collection]="collection"></search-box>
 
 <button (click)="showMore(10, cats.length)">Show more</button>
 

@@ -18,7 +18,7 @@ import { SearchBox } from './search-box.component';
 
 export class HomeComponent implements OnInit {
 	@ViewChildren('catsVisible') $cats = [];
-	@Output() set:string = "cats";
+	@Output() collection:string = "cats";
 	
 	private cats = [];
 	private cat = {};

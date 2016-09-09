@@ -8,15 +8,13 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 			<input type="text" (keydown)="submitSearch($event)"
 			(focus)="focusChange.emit('focus')"
 			(blur)="focusChange.emit('blur')"
-			placeholder='Search {{set}}'>
+			placeholder='Search {{collection}}'>
 		</div>`
 })
 export class SearchBox {
 	@Output() update = new EventEmitter();
 	@Output() focusChange = new EventEmitter();
-	@Input() set: string;
-
-	typing:boolean;
+	@Input() collection: string;
 
 	submitSearch($event) {
 		let search:string = $event.target.value;
@@ -28,5 +26,4 @@ export class SearchBox {
 		if (keyCode === 13)
 			this.update.emit(search);
 	}
-
 }
