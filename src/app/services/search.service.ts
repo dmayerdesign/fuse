@@ -7,14 +7,19 @@ export class SearchService {
 
   loadSearchableData(uri?:string, text?:string, limit?:number, offset?:number) {
     let params: URLSearchParams = new URLSearchParams();
-    params.set("search", text);
-    params.set("show", typeof limit === "number" && limit.toString());
-    params.set("offset", typeof offset === "number" && offset.toString());
-    
-    if (text && text.length)
+
+    if (typeof text === "string" && text.length) {
+      params.set("search", text);
       localStorage.setItem("searching", "true");
-    else
+    } else {
       localStorage.setItem("searching", "false");
+    }
+    if (typeof limit === "number" && limit > 0) {
+      params.set("show", typeof limit === "number" && limit.toString());
+    }
+    if (typeof offset === "number" && offset > 0) {
+      params.set("offset", (offset.toString()));
+    }
 
     return this.http.get(uri, {
       search: params

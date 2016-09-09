@@ -1,6 +1,7 @@
 var express = require('express');
 var morgan = require('morgan'); // logger
 var bodyParser = require('body-parser');
+var search = require('./backend-services/search.service');
 
 var app = express();
 app.set('port', (process.env.PORT || 4000));
@@ -44,19 +45,13 @@ db.once('open', function() {
         }).skip(offset).limit(limit);
     });
 
-    // find by name search
+    // find by search
     app.get('/cats/get', function(req, res) {
-        var limit = parseInt(req.query.show, 10) || 0;
-        var offset = parseInt(req.query.offset, 10) || 0;
-        var search = req.query.search;
-
-        var query = (typeof search === "string" && search.length) ? { "name": { "$regex": search, "$options": "i" } } : {};
-        console.log(query);
-
+        var query = search(req.query); // limit, offset, search, field
         Cat.find(query, (err, docs) => {
             if(err) return console.error(err);
             res.json(docs);
-        }).skip(offset).limit(limit);
+        }).skip(+query.offset).limit(+query.limit);
     });
 
     // count all
@@ -107,7 +102,7 @@ db.once('open', function() {
     });
 
     app.listen(app.get('port'), function() {
-        console.log('MEAN app listening on port '+app.get('port'));
+        console.log('MEAN app listening on port ' + app.get('port'));
     });
 });
 
