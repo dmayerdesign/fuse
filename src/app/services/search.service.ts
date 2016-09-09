@@ -5,20 +5,23 @@ import { Http, URLSearchParams } from '@angular/http';
 export class SearchService {
   constructor (private http:Http) { }
 
-  loadSearchableData(uri?:string, text?:string, limit?:number, offset?:number) {
+  loadSearchableData(uri:string, options) { //text?:string, limit?:number, offset?:number) {
     let params: URLSearchParams = new URLSearchParams();
 
-    if (typeof text === "string" && text.length) {
-      params.set("search", text);
+    if (typeof options.search === "string" && options.search.length) {
+      params.set("search", options.search);
       localStorage.setItem("searching", "true");
     } else {
       localStorage.setItem("searching", "false");
     }
-    if (typeof limit === "number" && limit > 0) {
-      params.set("show", typeof limit === "number" && limit.toString());
+    if (typeof options.field === "string" && options.field.length) {
+      params.set("field", options.field);
     }
-    if (typeof offset === "number" && offset > 0) {
-      params.set("offset", (offset.toString()));
+    if (typeof options.limit === "number" && options.limit > 0) {
+      params.set("limit", typeof options.limit === "number" && options.limit.toString());
+    }
+    if (typeof options.offset === "number" && options.offset > 0) {
+      params.set("offset", (options.offset.toString()));
     }
 
     return this.http.get(uri, {

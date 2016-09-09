@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChildren, ViewChild, Input, Output } from '@angu
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { CatService } from './services/cat.service';
+import { OrgService } from './services/org.service';
 import { UIHelper, Utilities } from './services/app.service';
 import { OrderBy } from './pipes/orderby.pipe.ts';
 import { AgePipe } from './pipes/age.pipe.ts';
@@ -11,7 +11,7 @@ import { SearchBox } from './search-box.component';
 @Component({
 	selector: 'home',
 	templateUrl: 'app/home.component.html',
-	providers: [CatService, UIHelper, Utilities],
+	providers: [OrgService, UIHelper, Utilities],
 	directives: [SearchBox],
 	pipes: [OrderBy, AgePipe]
 })
@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
 	private searchBoxIsFocused:boolean = false;
 
 	private isLoading = true;
-	private loadingCats = false;
+	private loadingOrgs = false;
 	private options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' }) });
 
 	private isEditing = false;
@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
 	constructor(
 				private http: Http,
 				private formBuilder: FormBuilder,
-				private catService: CatService,
+				private orgService: OrgService,
 				private helper: UIHelper,
 				private utilities: Utilities) {
 	}
@@ -71,7 +71,7 @@ export class HomeComponent implements OnInit {
 			? localStorage.setItem('CatsFilter', JSON.stringify(this.catsFilter))
 			: this.catsFilter = JSON.parse(localStorage['CatsFilter']);
 
-		this.catService.loadCats("", 10).subscribe(
+		this.orgService.loadOrgs("", 10).subscribe(
 			data => {
 				this.isLoading = false;
 				this.cats = data;
@@ -202,12 +202,12 @@ export class HomeComponent implements OnInit {
 	}
 
 	databaseSearch(search:string) {
-		this.loadingCats = true;
-		this.catService.loadCats(search, 10)
+		this.loadingOrgs = true;
+		this.orgService.loadOrgs(search, 10)
 			.subscribe(
 				results => {
 					this.cats = results;
-					this.loadingCats = false;
+					this.loadingOrgs = false;
 					this.searchText = search;
 					this.updateView();
 				},
@@ -218,7 +218,7 @@ export class HomeComponent implements OnInit {
 	showMore(increase:number, offset:number) {
 		let search = (localStorage["searching"] == "true") ? this.searchText : "";
 
-		this.catService.loadCats(this.searchText, increase, offset).subscribe(
+		this.orgService.loadOrgs(this.searchText, increase, offset).subscribe(
 			res => {
 				this.isLoading = false;
 				console.log(res);

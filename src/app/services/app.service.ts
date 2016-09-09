@@ -8,6 +8,21 @@ export class UIHelper {
   setTitle(newTitle: string) {
     this.title.setTitle( newTitle );
   }
+
+  takeCount(children):number {
+    let counter = ():number => {
+      if (children && children.length) {
+        return children.length;
+      }
+      else {
+        window.clearInterval(counterFunc);
+        return 0;
+      }
+    };
+    let counterFunc = window.setInterval(counter, 100);
+    
+    return counter();
+  }
 }
 
 @Injectable()

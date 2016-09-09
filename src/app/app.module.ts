@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { AboutComponent } from './about.component';
 import { LibraryComponent } from './library.component';
 import { HomeComponent } from './home.component';
+import { BrowseOrgsComponent } from './browse.orgs.component';
 import { SearchBox } from './search-box.component.ts';
 
 import { UserService } from './services/user.service';
@@ -19,7 +20,7 @@ import { enableProdMode } from '@angular/core';
 enableProdMode();
 
 const routing = RouterModule.forRoot([
-    { path: '',      component: HomeComponent },
+    { path: '',      component: BrowseOrgsComponent },
     { path: 'about', component: AboutComponent },
     { path: 'library', component: LibraryComponent }
 ]);
@@ -34,6 +35,7 @@ const routing = RouterModule.forRoot([
     ],
     declarations: [
       AppComponent,
+      BrowseOrgsComponent,
     	AboutComponent,
       LibraryComponent,
     	HomeComponent,
