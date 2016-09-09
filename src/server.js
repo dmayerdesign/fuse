@@ -2,6 +2,7 @@ var express = require('express');
 var morgan = require('morgan'); // logger
 var bodyParser = require('body-parser');
 var search = require('./backend-services/search.service');
+var mongoose = require('mongoose');
 
 var app = express();
 app.set('port', (process.env.PORT || 4000));
@@ -13,10 +14,8 @@ app.use('/app', express.static(__dirname + '/app'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(morgan('dev'));
 
-var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/fuse');
 var db = mongoose.connection;

@@ -5,14 +5,16 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 	styleUrls: ['app/search-box.component.css'],
 	template: `
 		<div class="search-box card-block">
-			<input type="text" (keydown)="submitSearch($event)" placeholder='Search {{set}}'>
+			<input type="text" (keydown)="submitSearch($event)"
+			(focus)="focusChange.emit('focus')"
+			(blur)="focusChange.emit('blur')"
+			placeholder='Search {{collection}}'>
 		</div>`
 })
 export class SearchBox {
 	@Output() update = new EventEmitter();
-	@Input() set: string;
-
-	typing:boolean;
+	@Output() focusChange = new EventEmitter();
+	@Input() collection: string;
 
 	submitSearch($event) {
 		let search:string = $event.target.value;

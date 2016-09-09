@@ -18,7 +18,7 @@ import { SearchBox } from './search-box.component';
 
 export class HomeComponent implements OnInit {
 	@ViewChildren('catsVisible') $cats = [];
-	@Output() set:string = "cats";
+	@Output() collection:string = "cats";
 	
 	private cats = [];
 	private cat = {};
@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
 	private catsShowing:number;
 	private catsFilter = {order: "-name"};
 	private searchText:string;
+	private searchBoxIsFocused:boolean = false;
 
 	private isLoading = true;
 	private loadingCats = false;
@@ -226,6 +227,15 @@ export class HomeComponent implements OnInit {
 			},
 			error => console.log(error)
 		);
+	}
+
+	toggleSearchBoxFocus(event:string) {
+		if (event == 'focus') {
+			this.searchBoxIsFocused = true;
+		}
+		if (event == 'blur') {
+			this.searchBoxIsFocused = false;
+		}
 	}
 
 }
