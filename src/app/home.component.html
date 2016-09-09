@@ -5,7 +5,13 @@
 	</div>
 </div>
 
-<search-box class="card" *ngIf="!isLoading" (update)="databaseSearch($event)" [set]="set"></search-box>
+<search-box
+	class="search-box-container card"
+	[ngClass]="{focused: searchBoxIsFocused}"
+	*ngIf="!isLoading"
+	(update)="databaseSearch($event)"
+	(focusChange)="toggleSearchBoxFocus($event)"
+	[set]="set"></search-box>
 
 <button (click)="showMore(10, cats.length)">Show more</button>
 
