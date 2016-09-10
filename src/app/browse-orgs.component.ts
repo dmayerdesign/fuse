@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, ViewChild, Input, Output } from '@angular/core';
+import { Component, OnInit, ViewChildren, ViewChild, Input, Output, ElementRef, HostListener } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
@@ -9,7 +9,8 @@ import { SearchBox } from './search-box.component';
 
 @Component({
 	selector: 'orgs-list',
-	templateUrl: 'app/browse.orgs.component.html',
+	templateUrl: 'app/browse-orgs.component.html',
+	styleUrls: [ 'app/browse-orgs.component.css' ],
 	providers: [OrgService, UIHelper, Utilities],
 	directives: [SearchBox],
 	pipes: [OrderBy]
@@ -18,13 +19,15 @@ import { SearchBox } from './search-box.component';
 export class BrowseOrgsComponent implements OnInit {
 	@ViewChildren('orgsList') $orgs = [];
 	@Output() collection:string = "organizations";
-	
+
 	private orgs = [];
 	private orgsLoaded:number = 10;
 	private orgsShowing:number;
 	private orgsSorting = {order: "-name"};
 	private searchText:string;
 	private searchBoxIsFocused:boolean = false;
+	private viewingOrg:boolean = false;
+	private selectedOrg:any = null;
 
 	private isLoading = true;
 	private loadingOrgs = false;
@@ -36,8 +39,21 @@ export class BrowseOrgsComponent implements OnInit {
 				private http: Http,
 				private orgService: OrgService,
 				private helper: UIHelper,
-				private utilities: Utilities) {
+				private utilities: Utilities,
+				private _elementRef: ElementRef) {
 	}
+
+	// @HostListener('document:click', ['$event', '$event.target'])
+ //  public onClick(event: MouseEvent, targetElement: HTMLElement):void {
+ //    if (!targetElement) {
+ //      return;
+ //    }
+
+ //    const clickedInside = this._elementRef.nativeElement.contains(targetElement);
+ //    if (!clickedInside) {
+ //      this.deselectOrg();
+ //    }
+ //  }
 
 	ngOnInit() {
 		this.helper.setTitle("Browse organizations");
@@ -126,6 +142,22 @@ export class BrowseOrgsComponent implements OnInit {
 		}
 		if (event == 'blur') {
 			this.searchBoxIsFocused = false;
+		}
+	}
+
+	viewOrg(id:string):void {
+		let findOrg = function(org) {
+			return org._id === id;
+		}
+		this.selectedOrg = this.orgs.find(findOrg);
+		this.viewingOrg = true;
+	}
+
+	deselectOrg(e:Event, id:string):void {
+		console.log(e);
+		if (this.viewingOrg && this.selectedOrg._id === id) {
+			this.selectedOrg = null;
+			this.viewingOrg = false;
 		}
 	}
 

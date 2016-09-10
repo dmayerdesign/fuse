@@ -9,28 +9,27 @@ import { AuthGuard } from '../common/auth.guard';
 import { AppComponent } from './app.component';
 import { AboutComponent } from './about.component';
 import { LibraryComponent } from './library.component';
-import { HomeComponent } from './home.component';
-import { BrowseOrgsComponent } from './browse.orgs.component';
+import { BrowseOrgsComponent } from './browse-orgs.component';
 import { SearchBox } from './search-box.component.ts';
 import { LoginComponent } from './login.component';
 import { SignupComponent } from './signup.component';
 
 import { UserService } from './services/user.service';
 import { SearchService } from './services/search.service';
-import { HighlightDirective } from './directives/highlight.directive';
+import { ClickOutsideModule } from 'ng2-click-outside';
 
 import { enableProdMode } from '@angular/core';
 enableProdMode();
 
 const routing = RouterModule.forRoot([
     { path: 'browse', component: BrowseOrgsComponent } // , canActivate: [AuthGuard] }
-  , { path: '', component: LoginComponent }
-  , { path: '**', component: LoginComponent }
   , { path: 'login', component: LoginComponent }
   , { path: 'signup', component: SignupComponent }
   , { path: 'about', component: AboutComponent }
   , { path: 'library', component: LibraryComponent }
-]);
+  , { path: '', component: LoginComponent }
+  , { path: '**', component: LoginComponent }
+]); // the order of this array matters
 
 @NgModule({
     imports: [
@@ -38,17 +37,16 @@ const routing = RouterModule.forRoot([
     	routing,
       HttpModule,
     	FormsModule,
-    	ReactiveFormsModule
+    	ReactiveFormsModule,
+      ClickOutsideModule
     ],
     declarations: [
       AppComponent,
       BrowseOrgsComponent,
     	AboutComponent,
       LibraryComponent,
-    	HomeComponent,
       LoginComponent,
-      SignupComponent,
-      HighlightDirective
+      SignupComponent
     ],
     providers: [
       Title,

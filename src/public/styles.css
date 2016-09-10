@@ -49,15 +49,19 @@ th {
 	opacity: 0.9;
 }
 
-.loading-cats {
-	position: absolute;
-	z-index: 999;
-	top: 60px;
-	left: 50%;
-	width: 60px;
-	margin-left: -30px;
+.search-box-container {
+	display: block;
+	perspective: 200px;
 }
 
-.search-box-container.focused {
-	box-shadow: 1px 2px 6px rgba(0,0,0,0.1);
+.search-box-container.focused .search-box {
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+	transform: translateZ(6px);
+}
+
+.search-box input {
+	padding: 0 0 0 0.4em;
+
+	font-size: 1.25rem;
+	font-weight: 300;
 }
