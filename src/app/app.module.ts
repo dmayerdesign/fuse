@@ -3,6 +3,8 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AUTH_PROVIDERS } from 'angular2-jwt';
+import { AuthGuard } from '../common/auth.guard';
 
 import { AppComponent } from './app.component';
 import { AboutComponent } from './about.component';
@@ -10,19 +12,24 @@ import { LibraryComponent } from './library.component';
 import { HomeComponent } from './home.component';
 import { BrowseOrgsComponent } from './browse.orgs.component';
 import { SearchBox } from './search-box.component.ts';
+import { LoginComponent } from './login.component';
+import { SignupComponent } from './signup.component';
 
 import { UserService } from './services/user.service';
 import { SearchService } from './services/search.service';
-
 import { HighlightDirective } from './directives/highlight.directive';
 
 import { enableProdMode } from '@angular/core';
 enableProdMode();
 
 const routing = RouterModule.forRoot([
-    { path: '',      component: BrowseOrgsComponent },
-    { path: 'about', component: AboutComponent },
-    { path: 'library', component: LibraryComponent }
+    { path: 'browse', component: BrowseOrgsComponent } // , canActivate: [AuthGuard] }
+  , { path: '', component: LoginComponent }
+  , { path: '**', component: LoginComponent }
+  , { path: 'login', component: LoginComponent }
+  , { path: 'signup', component: SignupComponent }
+  , { path: 'about', component: AboutComponent }
+  , { path: 'library', component: LibraryComponent }
 ]);
 
 @NgModule({
@@ -39,13 +46,16 @@ const routing = RouterModule.forRoot([
     	AboutComponent,
       LibraryComponent,
     	HomeComponent,
+      LoginComponent,
+      SignupComponent,
       HighlightDirective
     ],
     providers: [
       Title,
       UserService,
       SearchBox,
-      SearchService
+      SearchService,
+      AuthGuard
     ],
     bootstrap: [AppComponent]
 })
