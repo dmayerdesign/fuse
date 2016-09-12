@@ -10,6 +10,10 @@ module.exports = {
 	  Org.find(dbQuery, (err, docs) => {
 	    if(err) return console.error(err);
 	    res.json(docs);
-	  }).skip(+req.query.offset).limit(+req.query.limit);
+	  })
+	  .sort("-stars")
+	  .skip(+req.query.offset)
+	  .limit(+req.query.limit);
+
 	}
 }
