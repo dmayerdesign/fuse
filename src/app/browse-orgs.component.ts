@@ -4,7 +4,6 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { OrgService } from './services/org.service';
 import { UIHelper, Utilities } from './services/app.service';
-import { OrderBy } from './pipes/orderby.pipe.ts';
 import { SearchBox } from './search-box.component';
 
 @Component({
@@ -13,7 +12,7 @@ import { SearchBox } from './search-box.component';
 	styleUrls: [ 'app/browse-orgs.component.css' ],
 	providers: [OrgService, UIHelper, Utilities],
 	directives: [SearchBox],
-	pipes: [OrderBy]
+	pipes: []
 })
 
 export class BrowseOrgsComponent implements OnInit {

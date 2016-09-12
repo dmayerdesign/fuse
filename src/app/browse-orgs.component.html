@@ -20,18 +20,6 @@
 	<div class="card-block">
 
 		<table class="table table-bordered table-striped">
-			<thead class="thead-default">
-				<tr>
-					<th (click)="toggleOrder('name')">Name 
-						<i *ngIf="isAscending(orgsSorting.order) && utilities.contains(orgsSorting.order, 'name')" class="fa fa-angle-up"></i>
-						<i *ngIf="!isAscending(orgsSorting.order) && utilities.contains(orgsSorting.order, 'name')" class="fa fa-angle-down"></i>
-					</th>
-					<th (click)="toggleOrder('stars')">Stars 
-						<i *ngIf="isAscending(orgsSorting.order) && utilities.contains(orgsSorting.order, 'stars')" class="fa fa-angle-up"></i>
-						<i *ngIf="!isAscending(orgsSorting.order) && utilities.contains(orgsSorting.order, 'stars')" class="fa fa-angle-down"></i>
-					</th>
-				</tr>
-			</thead>
 
 			<tbody *ngIf="orgs.length === 0">
 				<tr>
@@ -40,8 +28,7 @@
 			</tbody>
 
 			<tbody *ngIf="!isEditing">
-				<tr #orgsList *ngFor="let org of orgs
-					| orderBy : [orgsSorting.order]"
+				<tr #orgsList *ngFor="let org of orgs"
 					(click)="viewOrg(org._id)"
 					(clickOutside)="deselectOrg($event, org._id)">
 					<td>
