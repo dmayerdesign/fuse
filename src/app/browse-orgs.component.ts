@@ -5,19 +5,20 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { OrgService } from './services/org.service';
 import { UIHelper, Utilities } from './services/app.service';
 import { SearchBox } from './search-box.component';
+import { OrgDetailsComponent } from './org-details.component';
 
 @Component({
 	selector: 'orgs-list',
 	templateUrl: 'app/browse-orgs.component.html',
 	styleUrls: [ 'app/browse-orgs.component.css' ],
 	providers: [OrgService, UIHelper, Utilities],
-	directives: [SearchBox],
+	directives: [SearchBox, OrgDetailsComponent],
 	pipes: []
 })
 
 export class BrowseOrgsComponent implements OnInit {
-	@ViewChildren('orgsList') $orgs = [];
-	@Output() collection:string = "organizations";
+	@ViewChildren('singleItem') $orgs = [];
+	@Output() selectedOrg:any = null;
 
 	private orgs = [];
 	private orgsLoaded:number = 10;
@@ -26,7 +27,7 @@ export class BrowseOrgsComponent implements OnInit {
 	private searchText:string;
 	private searchBoxIsFocused:boolean = false;
 	private viewingOrg:boolean = false;
-	private selectedOrg:any = null;
+	//private selectedOrg:any = null;
 
 	private isLoading = true;
 	private loadingOrgs = false;
@@ -42,18 +43,6 @@ export class BrowseOrgsComponent implements OnInit {
 				private _elementRef: ElementRef) {
 	}
 
-	// @HostListener('document:click', ['$event', '$event.target'])
- //  public onClick(event: MouseEvent, targetElement: HTMLElement):void {
- //    if (!targetElement) {
- //      return;
- //    }
-
- //    const clickedInside = this._elementRef.nativeElement.contains(targetElement);
- //    if (!clickedInside) {
- //      this.deselectOrg();
- //    }
- //  }
-
 	ngOnInit() {
 		this.helper.setTitle("Browse organizations");
 
@@ -62,7 +51,7 @@ export class BrowseOrgsComponent implements OnInit {
 			? localStorage.setItem('OrgsSorting', JSON.stringify(this.orgsSorting))
 			: this.orgsSorting = JSON.parse(localStorage['OrgsSorting']);
 
-		this.orgService.loadOrgs({}).subscribe(
+		this.orgService.loadOrgs({limit:10}).subscribe(
 			data => {
 				this.isLoading = false;
 				this.orgs = data;
@@ -108,7 +97,7 @@ export class BrowseOrgsComponent implements OnInit {
 		}
 	}
 
-	databaseSearch(search:string) {
+	searchOrgs(search:string) {
 		this.loadingOrgs = true;
 		this.orgService.loadOrgs({search:search, limit:10})
 			.subscribe(

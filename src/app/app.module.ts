@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AboutComponent } from './about.component';
 import { LibraryComponent } from './library.component';
 import { BrowseOrgsComponent } from './browse-orgs.component';
+import { OrgDetailsComponent } from './org-details.component';
 import { SearchBox } from './search-box.component.ts';
 import { LoginComponent } from './login.component';
 import { SignupComponent } from './signup.component';
@@ -43,6 +44,7 @@ const routing = RouterModule.forRoot([
     declarations: [
       AppComponent,
       BrowseOrgsComponent,
+      OrgDetailsComponent,
     	AboutComponent,
       LibraryComponent,
       LoginComponent,
