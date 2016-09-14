@@ -22,4 +22,4 @@ module.exports = new mongoose.Schema({
     website: String,
     picture: String
   }
-}, { timestamps: true });
+}, { timestamps: true })
