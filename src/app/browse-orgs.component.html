@@ -7,10 +7,10 @@
 
 <search-box
 	class="search-box-container col-md-8 col-md-offset-2 clearfix"
-	[ngClass]="{focused: searchBoxIsFocused}"
 	*ngIf="!isLoading"
 	(update)="searchOrgs($event)"
 	(focusChange)="toggleSearchBoxFocus($event)"
+	[ngClass]="{focused: searchBoxIsFocused}"
 	[collection]="'organizations'"></search-box>
 
 <div class="browse container-fluid" *ngIf="!isLoading">
