@@ -1,5 +1,4 @@
 node_modules/
 typings/
 src/bundle/
-.DS_STORE
-
+.DS_Store
