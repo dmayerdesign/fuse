@@ -31,9 +31,11 @@
 			<h5>{{org.name}}</h5>
 			<p>{{org.stars}}</p>
 
-			<org-details
-				[org]="selectedOrg"
-				*ngIf="viewingOrg && org._id === selectedOrg._id"></org-details>
+			<div class="org-expanded" *ngIf="viewingOrg && org._id === selectedOrg._id">
+				<org-details (update)="sendInfoMsg($event.body, $event.type)" [org]="selectedOrg"></org-details>
+				<a href="/organization/{{org._id}}">View Org</a>
+				<org-posts [org]="selectedOrg"></org-posts>
+			</div>
 		</div>
 		
 		<button class="row btn btn-default" (click)="showMore(10, orgs.length)">Show more</button>

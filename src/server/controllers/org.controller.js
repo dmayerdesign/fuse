@@ -14,6 +14,5 @@ module.exports = {
 	  .sort("-stars")
 	  .skip(+req.query.offset)
 	  .limit(+req.query.limit);
-
 	}
 }

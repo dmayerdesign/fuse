@@ -11,6 +11,8 @@ import { AboutComponent } from './about.component';
 import { LibraryComponent } from './library.component';
 import { BrowseOrgsComponent } from './browse-orgs.component';
 import { OrgDetailsComponent } from './org-details.component';
+import { OrgPostsComponent } from './org-posts.component';
+import { SingleOrgComponent } from './single-org.component';
 import { SearchBox } from './search-box.component.ts';
 import { LoginComponent } from './login.component';
 import { SignupComponent } from './signup.component';
@@ -28,6 +30,7 @@ const routing = RouterModule.forRoot([
   , { path: 'signup', component: SignupComponent }
   , { path: 'about', component: AboutComponent }
   , { path: 'library', component: LibraryComponent }
+  , { path: 'organization/:id', component: SingleOrgComponent }
   , { path: '', component: LoginComponent }
   , { path: '**', component: LoginComponent }
 ]); // the order of this array matters
@@ -45,6 +48,8 @@ const routing = RouterModule.forRoot([
       AppComponent,
       BrowseOrgsComponent,
       OrgDetailsComponent,
+      OrgPostsComponent,
+      SingleOrgComponent,
     	AboutComponent,
       LibraryComponent,
       LoginComponent,

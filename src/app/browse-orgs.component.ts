@@ -6,13 +6,14 @@ import { OrgService } from './services/org.service';
 import { UIHelper, Utilities } from './services/app.service';
 import { SearchBox } from './search-box.component';
 import { OrgDetailsComponent } from './org-details.component';
+import { OrgPostsComponent } from './org-posts.component';
 
 @Component({
 	selector: 'orgs-list',
 	templateUrl: 'app/browse-orgs.component.html',
 	styleUrls: [ 'app/browse-orgs.component.css' ],
 	providers: [OrgService, UIHelper, Utilities],
-	directives: [SearchBox, OrgDetailsComponent],
+	directives: [SearchBox, OrgDetailsComponent, OrgPostsComponent],
 	pipes: []
 })
 

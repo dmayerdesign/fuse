@@ -13,4 +13,8 @@ export class OrgService {
 		return this.search.loadSearchableData("/orgs/get", options);
 	}
 
+	loadOrg(id) {
+		return this.http.get("/org/" + id).map(res => res.json());
+	}
+
 }
